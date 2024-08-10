@@ -4,27 +4,20 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    let resArr = null;
+    
+ let visitedNums = new Map(); // Map contains the [value, index] pair
 
-    for(let i = 0; i < nums.length; i++){
-        const thisNum = nums[i];
-        
-        const neededNum = target - thisNum;
-        
-        console.log('needednum', neededNum)
+        for(let i = 0; i < nums.length; i++){
+            const thisNum = nums[i];
 
-        for(let j = i + 1; j < nums.length; j++){
-            if(neededNum === nums[j]){
-                resArr = [i, j];
-                break;
+            const neededNum = target - thisNum;
+
+            const indexOfNeeded = visitedNums.get(neededNum);
+            if(indexOfNeeded != undefined){
+                return [indexOfNeeded, i];
             }
-        }
-        
-        if(resArr != null){
-        	break;
-        }
-    }
 
-    return resArr;
+            visitedNums.set(thisNum, i);
+        }
     
 };
