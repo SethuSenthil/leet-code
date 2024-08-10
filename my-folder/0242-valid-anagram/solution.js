@@ -4,35 +4,32 @@
  * @return {boolean}
  */
 var isAnagram = function(s, t) {
-    let buffer = new Map();
-    let isValid = true;
-    
+      if(s.length != t.length)
+        return false;
+
+    let sMap = new Map();
+
     for(let i = 0; i < s.length; i++){
-         const thisLetter = s.charAt(i);
-         if (buffer.has(thisLetter)){
-             buffer.set(thisLetter, buffer.get(thisLetter) + 1);
-         }else{
-             buffer.set(thisLetter, 1);
-         }
+        let thisLetter = s[i];
+
+        sMap.set(thisLetter, (sMap.get(thisLetter) ?? 0) + 1);
     }
 
     for(let i = 0; i < t.length; i++){
-        const thisLetter = t.charAt(i);
+        let thisLetter = t[i];
 
-          if (buffer.has(thisLetter)){
-              let minus1 = buffer.get(thisLetter) - 1;
-              if(minus1 === 0){
-                  buffer.delete(thisLetter);
-              }else{
-                  buffer.set(thisLetter, minus1);
-              }
-          }else{
-              isValid = false;
-              break;
+        let letterInMap = sMap.get(thisLetter);
+
+        if(letterInMap == undefined){
+            return false;
+        }else{
+          sMap.set(thisLetter, letterInMap - 1);
+
+          if(sMap.get(thisLetter) === 0){
+             sMap.delete(thisLetter);
           }
+        }
     }
-    
-    if(isValid)
-        return buffer.size === 0
-    return false;
-};
+
+      return true;
+    }
