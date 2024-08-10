@@ -2,20 +2,17 @@
  * @param {number[]} nums
  * @return {boolean}
  */
-
-
 var containsDuplicate = function(nums) {
-    let myMap = new Set();
-    let dupe = false;
+    let seenNums = new Set();
 
     for(let i = 0; i < nums.length; i++){
-        const thisElem = nums[i];
-        if(!myMap.has(thisElem)){
-            myMap.add(thisElem);
-        }else{
-            dupe = true;
-            break;
-        }
+        const thisNum = nums[i];
+
+        if(seenNums.has(thisNum))
+            return true;
+        
+        seenNums.add(thisNum);
     }
-    return dupe;
+
+    return false;
 };
